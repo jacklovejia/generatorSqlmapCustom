@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jack.mapper.JackMapper" >
+  <resultMap id="BaseResultMap" type="com.jack.entity.Jack" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="INTEGER" />
+    <result column="api_name" property="apiName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="request_no" property="requestNo" jdbcType="VARCHAR" />
+    <result column="request_content" property="requestContent" jdbcType="VARCHAR" />
+    <result column="response_content" property="responseContent" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="error_Message" property="errorMessage" jdbcType="VARCHAR" />
+    <result column="req_time" property="reqTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, platform, api_name, url, request_no, request_content, response_content, state, 
+    error_Message, req_time, end_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jack.entity.JackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jack
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jack
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jack
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jack.entity.JackExample" >
+    delete from jack
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jack.entity.Jack" >
+    insert into jack (id, platform, api_name, 
+      url, request_no, request_content, 
+      response_content, state, error_Message, 
+      req_time, end_time)
+    values (#{id,jdbcType=INTEGER}, #{platform,jdbcType=INTEGER}, #{apiName,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{requestNo,jdbcType=VARCHAR}, #{requestContent,jdbcType=VARCHAR}, 
+      #{responseContent,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{errorMessage,jdbcType=VARCHAR}, 
+      #{reqTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jack.entity.Jack" >
+    insert into jack
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="apiName != null" >
+        api_name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="requestNo != null" >
+        request_no,
+      </if>
+      <if test="requestContent != null" >
+        request_content,
+      </if>
+      <if test="responseContent != null" >
+        response_content,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="errorMessage != null" >
+        error_Message,
+      </if>
+      <if test="reqTime != null" >
+        req_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="apiName != null" >
+        #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="requestNo != null" >
+        #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="requestContent != null" >
+        #{requestContent,jdbcType=VARCHAR},
+      </if>
+      <if test="responseContent != null" >
+        #{responseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null" >
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        #{reqTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jack.entity.JackExample" resultType="java.lang.Integer" >
+    select count(*) from jack
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jack
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiName != null" >
+        api_name = #{record.apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestNo != null" >
+        request_no = #{record.requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestContent != null" >
+        request_content = #{record.requestContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.responseContent != null" >
+        response_content = #{record.responseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorMessage != null" >
+        error_Message = #{record.errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqTime != null" >
+        req_time = #{record.reqTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jack
+    set id = #{record.id,jdbcType=INTEGER},
+      platform = #{record.platform,jdbcType=INTEGER},
+      api_name = #{record.apiName,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      request_no = #{record.requestNo,jdbcType=VARCHAR},
+      request_content = #{record.requestContent,jdbcType=VARCHAR},
+      response_content = #{record.responseContent,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=VARCHAR},
+      error_Message = #{record.errorMessage,jdbcType=VARCHAR},
+      req_time = #{record.reqTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jack.entity.Jack" >
+    update jack
+    <set >
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="apiName != null" >
+        api_name = #{apiName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="requestNo != null" >
+        request_no = #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="requestContent != null" >
+        request_content = #{requestContent,jdbcType=VARCHAR},
+      </if>
+      <if test="responseContent != null" >
+        response_content = #{responseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null" >
+        error_Message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        req_time = #{reqTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jack.entity.Jack" >
+    update jack
+    set platform = #{platform,jdbcType=INTEGER},
+      api_name = #{apiName,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      request_no = #{requestNo,jdbcType=VARCHAR},
+      request_content = #{requestContent,jdbcType=VARCHAR},
+      response_content = #{responseContent,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      error_Message = #{errorMessage,jdbcType=VARCHAR},
+      req_time = #{reqTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
